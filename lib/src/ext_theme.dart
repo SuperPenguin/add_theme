@@ -121,9 +121,7 @@ class _InheritedExtTheme<T extends ExtThemeData> extends InheritedWidget {
   final ExtTheme<T> theme;
 
   @override
-  bool updateShouldNotify(covariant InheritedWidget oldWidget) {
-    if (oldWidget is! _InheritedExtTheme<T>) return true;
-
+  bool updateShouldNotify(_InheritedExtTheme<T> oldWidget) {
     return oldWidget.theme.data != theme.data;
   }
 }
