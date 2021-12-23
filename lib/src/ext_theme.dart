@@ -146,25 +146,3 @@ class ExtThemeDataTween<T extends ExtThemeData> extends Tween<T> {
   @override
   T lerp(double t) => begin!.lerpTo(end!, t) as T;
 }
-
-abstract class ExtThemeUtils {
-  static double doubleLerp(double a, double b, double progress) {
-    assert(a.isFinite);
-    assert(b.isFinite);
-
-    return a * (1.0 - progress) + b * progress;
-  }
-
-  static String stringLerp(String a, String b, double progress) {
-    final int len1 = ((b.length - a.length) * progress + a.length).truncate();
-    final int len2 = (b.length * progress).truncate();
-    final String str2 = b.substring(0, len2);
-    final String str1 = a.length > len2
-        ? len1 > 0 && len1 < a.length
-            ? a.substring(len2, len1)
-            : a.substring(len2)
-        : '';
-
-    return str2 + str1;
-  }
-}

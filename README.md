@@ -24,10 +24,10 @@ class MyThemeData extends ExtThemeData {
   @override
   MyThemeData lerpTo(MyThemeData target, double progress) {
     return MyThemeData(
-      colorA: Color.lerp(colorA, target.colorA, progress)!,
-      colorB: Color.lerp(colorB, target.colorB, progress)!,
-      doubleA: ExtThemeUtils.doubleLerp(doubleA, target.doubleA, progress),
-      doubleB: ExtThemeUtils.doubleLerp(doubleB, target.doubleB, progress),
+      colorA: lerpColor(colorA, target.colorA, progress)!,
+      colorB: lerpColor(colorB, target.colorB, progress)!,
+      doubleA: lerpDouble(doubleA, target.doubleA, progress),
+      doubleB: lerpDouble(doubleB, target.doubleB, progress),
     );
   }
 
