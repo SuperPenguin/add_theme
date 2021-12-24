@@ -2,6 +2,17 @@
 
 Ext Theme is a copy of how Theme works but you could extends it to define your extended Theme.
 
+## Installing
+
+Add by git
+
+```yaml
+dependencies:
+  ext_theme:
+    git:
+      url: https://github.com/SuperPenguin/ext_theme.git
+```
+
 ## Example
 
 Define your own ThemeData extending `ExtThemeData`, you have to implement `lerpTo`, `operator ==`, and `hashCode` to make it work properly.

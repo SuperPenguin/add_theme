@@ -67,7 +67,7 @@ class _SizeMatcher extends Matcher {
 
   @override
   Description describe(Description description) =>
-      description.add('matches color $targetSize');
+      description.add('matches Size $targetSize');
 }
 
 void main() {
