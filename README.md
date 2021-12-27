@@ -121,3 +121,88 @@ class YourWidget extends StatelessWidget {
   }
 }
 ```
+
+and you can make a nested ThemeData for your widget too
+
+```dart
+@immutable
+class RootThemeData extends ExtThemeData {
+  const RootThemeData({
+    required this.color1,
+    required this.color2,
+    required this.calendarTheme,
+  });
+
+  final Color color1;
+  final Color color2;
+  final CalendarThemeData calendarTheme;
+
+  @override
+  RootThemeData lerpTo(RootThemeData target, double progress) {
+    return RootThemeData(
+      color1: lerpColor(color1, target.color1, progress),
+      color2: lerpColor(color2, target.color2, progress),
+      calendarTheme: calendarTheme.lerpTo(target.calendarTheme, progress),
+    );
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (other is! RootThemeData) return false;
+
+    return other.color1 == color1 &&
+        other.color2 == color2 &&
+        other.calendarTheme == calendarTheme;
+  }
+
+  @override
+  int get hashCode => Object.hashAll([color1, color2, calendarTheme]);
+}
+
+@immutable
+class CalendarThemeData extends ExtThemeData {
+  const CalendarThemeData({
+    required this.borderColor,
+    required this.headerColor,
+  });
+
+  final Color borderColor;
+  final Color headerColor;
+
+  @override
+  CalendarThemeData lerpTo(CalendarThemeData target, double progress) {
+    return CalendarThemeData(
+      borderColor: lerpColor(borderColor, target.borderColor, progress),
+      headerColor: lerpColor(headerColor, target.headerColor, progress),
+    );
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (other is! CalendarThemeData) return false;
+
+    return other.borderColor == borderColor && other.headerColor == headerColor;
+  }
+
+  @override
+  int get hashCode => Object.hashAll([borderColor, headerColor]);
+}
+
+class Calendar extends StatelessWidget {
+  const Calendar({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final rootTheme = ExtTheme.maybeOf<RootThemeData>(context);
+    final calendarTheme = rootTheme?.calendarTheme ?? _defaultStyle;
+
+    ....
+  }
+
+  static const CalendarThemeData _defaultStyle = CalendarThemeData(
+    borderColor: Colors.white,
+    headerColor: Colors.white10,
+  );
+}
+
+```
