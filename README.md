@@ -1,25 +1,14 @@
-# Ext Theme
+# Add Theme
 
-Ext Theme is a copy of how Theme works but you could extends it to define your extended Theme.
-
-## Installing
-
-Add by git
-
-```yaml
-dependencies:
-  ext_theme:
-    git:
-      url: https://github.com/SuperPenguin/ext_theme.git
-```
+Add Theme is a copy of how Theme works but you could extends it to define your extended Theme.
 
 ## Example
 
-Define your own ThemeData extending `ExtThemeData`, you have to implement `lerpTo`, `operator ==`, and `hashCode` to make it work properly.
+Define your own ThemeData extending `AddThemeData`, you have to implement `lerpTo`, `operator ==`, and `hashCode` to make it work properly.
 
 ```dart
 @immutable
-class MyThemeData extends ExtThemeData {
+class MyThemeData extends AddThemeData {
   const MyThemeData({
     required this.colorA,
     required this.colorB,
@@ -62,7 +51,7 @@ class MyThemeData extends ExtThemeData {
 }
 ```
 
-Add `ExtThemeApp`, or `ExtTheme`, or `AnimatedExtTheme` to your MaterialApp builder
+Add `AddThemeApp`, or `AddTheme`, or `AnimatedAddTheme` to your MaterialApp builder
 
 ```dart
 return MaterialApp(
@@ -70,7 +59,7 @@ return MaterialApp(
   darkTheme: ThemeData.dark(),
   themeMode: themeMode,
   builder: (context, child) {
-    return ExtThemeApp<MyThemeData>(
+    return AddThemeApp<MyThemeData>(
       theme: myLightTheme,
       darkTheme: myDarkTheme,
       child: child!,
@@ -86,17 +75,17 @@ class YourWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final myTheme = ExtTheme.of<MyThemeData>(context);
+    final myTheme = AddTheme.of<MyThemeData>(context);
 
     ....
   }
 }
 ```
 
-optionally you could also extends the ExtTheme and add the `of` method for convenience
+optionally you could also extends the AddTheme and add the `of` method for convenience
 
 ```dart
-class MyTheme extends ExtTheme<MyThemeData> {
+class MyTheme extends AddTheme<MyThemeData> {
   const MyTheme({
     Key? key,
     required MyThemeData data,
@@ -104,10 +93,10 @@ class MyTheme extends ExtTheme<MyThemeData> {
   }) : super(key: key, data: data, child: child);
 
   static MyThemeData? maybeOf(BuildContext context) =>
-      ExtTheme.maybeOf<MyThemeData>(context);
+      AddTheme.maybeOf<MyThemeData>(context);
 
   static MyThemeData of(BuildContext context) =>
-      ExtTheme.of<MyThemeData>(context);
+      AddTheme.of<MyThemeData>(context);
 }
 
 class YourWidget extends StatelessWidget {
@@ -126,7 +115,7 @@ and you can make a nested ThemeData for your widget too
 
 ```dart
 @immutable
-class RootThemeData extends ExtThemeData {
+class RootThemeData extends AddThemeData {
   const RootThemeData({
     required this.color1,
     required this.color2,
@@ -160,7 +149,7 @@ class RootThemeData extends ExtThemeData {
 }
 
 @immutable
-class CalendarThemeData extends ExtThemeData {
+class CalendarThemeData extends AddThemeData {
   const CalendarThemeData({
     required this.borderColor,
     required this.headerColor,
@@ -193,7 +182,7 @@ class Calendar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final rootTheme = ExtTheme.maybeOf<RootThemeData>(context);
+    final rootTheme = AddTheme.maybeOf<RootThemeData>(context);
     final calendarTheme = rootTheme?.calendarTheme ?? _defaultStyle;
 
     ....

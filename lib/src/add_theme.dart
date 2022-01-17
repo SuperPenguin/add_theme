@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class ExtThemeApp<T extends ExtThemeData> extends StatelessWidget {
-  const ExtThemeApp({
+class AddThemeApp<T extends AddThemeData> extends StatelessWidget {
+  const AddThemeApp({
     Key? key,
     required this.theme,
     this.darkTheme,
@@ -17,16 +17,16 @@ class ExtThemeApp<T extends ExtThemeData> extends StatelessWidget {
     final isLightTheme = Theme.of(context).brightness == Brightness.light;
     final targetTheme = isLightTheme ? theme : darkTheme ?? theme;
 
-    return AnimatedExtTheme<T>(
+    return AnimatedAddTheme<T>(
       data: targetTheme,
       child: child,
     );
   }
 }
 
-class AnimatedExtTheme<T extends ExtThemeData>
+class AnimatedAddTheme<T extends AddThemeData>
     extends ImplicitlyAnimatedWidget {
-  const AnimatedExtTheme({
+  const AnimatedAddTheme({
     Key? key,
     required this.data,
     Curve curve = Curves.linear,
@@ -44,33 +44,33 @@ class AnimatedExtTheme<T extends ExtThemeData>
   final Widget child;
 
   @override
-  _AnimatedExtThemeState createState() => _AnimatedExtThemeState<T>();
+  _AnimatedAddThemeState createState() => _AnimatedAddThemeState<T>();
 }
 
-class _AnimatedExtThemeState<T extends ExtThemeData>
-    extends AnimatedWidgetBaseState<AnimatedExtTheme> {
-  ExtThemeDataTween<T>? _data;
+class _AnimatedAddThemeState<T extends AddThemeData>
+    extends AnimatedWidgetBaseState<AnimatedAddTheme> {
+  AddThemeDataTween<T>? _data;
 
   @override
   void forEachTween(TweenVisitor<dynamic> visitor) {
     _data = visitor(
       _data,
       widget.data,
-      (dynamic value) => ExtThemeDataTween<T>(begin: value as T),
-    )! as ExtThemeDataTween<T>;
+      (dynamic value) => AddThemeDataTween<T>(begin: value as T),
+    )! as AddThemeDataTween<T>;
   }
 
   @override
   Widget build(BuildContext context) {
-    return ExtTheme<T>(
+    return AddTheme<T>(
       data: _data!.evaluate(animation),
       child: widget.child,
     );
   }
 }
 
-class ExtTheme<T extends ExtThemeData> extends StatelessWidget {
-  const ExtTheme({
+class AddTheme<T extends AddThemeData> extends StatelessWidget {
+  const AddTheme({
     Key? key,
     required this.data,
     required this.child,
@@ -79,7 +79,7 @@ class ExtTheme<T extends ExtThemeData> extends StatelessWidget {
   final T data;
   final Widget child;
 
-  static T of<T extends ExtThemeData>(BuildContext context) {
+  static T of<T extends AddThemeData>(BuildContext context) {
     final data = maybeOf<T>(context);
     if (data != null) {
       return data;
@@ -87,29 +87,29 @@ class ExtTheme<T extends ExtThemeData> extends StatelessWidget {
 
     throw FlutterError.fromParts([
       ErrorSummary(
-        'Can\'t find a ExtTheme of $T, the context used doesn\'t have any ancestor $T',
+        'Can\'t find a AddTheme of $T, the context used doesn\'t have any ancestor $T',
       ),
       context.describeElement('The context used was'),
     ]);
   }
 
-  static T? maybeOf<T extends ExtThemeData>(BuildContext context) {
+  static T? maybeOf<T extends AddThemeData>(BuildContext context) {
     final inherited =
-        context.dependOnInheritedWidgetOfExactType<_InheritedExtTheme<T>>();
+        context.dependOnInheritedWidgetOfExactType<_InheritedAddTheme<T>>();
     return inherited?.theme.data;
   }
 
   @override
   Widget build(BuildContext context) {
-    return _InheritedExtTheme<T>(
+    return _InheritedAddTheme<T>(
       theme: this,
       child: child,
     );
   }
 }
 
-class _InheritedExtTheme<T extends ExtThemeData> extends InheritedWidget {
-  const _InheritedExtTheme({
+class _InheritedAddTheme<T extends AddThemeData> extends InheritedWidget {
+  const _InheritedAddTheme({
     Key? key,
     required this.theme,
     required Widget child,
@@ -118,24 +118,24 @@ class _InheritedExtTheme<T extends ExtThemeData> extends InheritedWidget {
           child: child,
         );
 
-  final ExtTheme<T> theme;
+  final AddTheme<T> theme;
 
   @override
-  bool updateShouldNotify(_InheritedExtTheme<T> oldWidget) {
+  bool updateShouldNotify(_InheritedAddTheme<T> oldWidget) {
     return oldWidget.theme.data != theme.data;
   }
 }
 
 @immutable
-abstract class ExtThemeData {
-  const ExtThemeData();
+abstract class AddThemeData {
+  const AddThemeData();
 
   @protected
-  ExtThemeData lerpTo(covariant ExtThemeData target, double progress);
+  AddThemeData lerpTo(covariant AddThemeData target, double progress);
 }
 
-class ExtThemeDataTween<T extends ExtThemeData> extends Tween<T> {
-  ExtThemeDataTween({
+class AddThemeDataTween<T extends AddThemeData> extends Tween<T> {
+  AddThemeDataTween({
     T? begin,
     T? end,
   }) : super(

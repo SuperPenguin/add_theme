@@ -1,9 +1,9 @@
-import 'package:ext_theme/ext_theme.dart';
+import 'package:add_theme/add_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 @immutable
-class TestThemeData extends ExtThemeData {
+class TestThemeData extends AddThemeData {
   const TestThemeData({
     required this.testColor,
     required this.testChildTheme,
@@ -32,7 +32,7 @@ class TestThemeData extends ExtThemeData {
   int get hashCode => Object.hashAll([testColor, testChildTheme]);
 }
 
-class TestChildThemeData extends ExtThemeData {
+class TestChildThemeData extends AddThemeData {
   const TestChildThemeData({
     required this.testChildColor,
   });
@@ -61,7 +61,7 @@ class TestChildThemeData extends ExtThemeData {
   int get hashCode => Object.hashAll([testChildColor]);
 }
 
-class TestTheme extends ExtTheme<TestThemeData> {
+class TestTheme extends AddTheme<TestThemeData> {
   const TestTheme({
     Key? key,
     required TestThemeData data,
@@ -69,10 +69,10 @@ class TestTheme extends ExtTheme<TestThemeData> {
   }) : super(key: key, data: data, child: child);
 
   static TestThemeData? maybeOf(BuildContext context) =>
-      ExtTheme.maybeOf<TestThemeData>(context);
+      AddTheme.maybeOf<TestThemeData>(context);
 
   static TestThemeData of(BuildContext context) =>
-      ExtTheme.of<TestThemeData>(context);
+      AddTheme.of<TestThemeData>(context);
 }
 
 const testLight = TestThemeData(
@@ -156,11 +156,11 @@ void main() {
   });
 
   // Widgets
-  testWidgets('Insert ExtTheme', (WidgetTester tester) async {
+  testWidgets('Insert AddTheme', (WidgetTester tester) async {
     final boxKey = UniqueKey();
 
     await tester.pumpWidget(
-      ExtTheme<TestThemeData>(
+      AddTheme<TestThemeData>(
         data: testLight,
         child: Builder(
           builder: (context) {
@@ -179,7 +179,7 @@ void main() {
     );
   });
 
-  testWidgets('Animated ExtTheme', (WidgetTester tester) async {
+  testWidgets('Animated AddTheme', (WidgetTester tester) async {
     TestThemeData current = testLight;
     late StateSetter testSetState;
     final boxKey = UniqueKey();
@@ -189,7 +189,7 @@ void main() {
         builder: (context, setState) {
           testSetState = setState;
 
-          return AnimatedExtTheme<TestThemeData>(
+          return AnimatedAddTheme<TestThemeData>(
             data: current,
             child: Builder(
               builder: (context) {
@@ -225,7 +225,7 @@ void main() {
     );
   });
 
-  testWidgets('ExtThemeApp ThemeMode changes', (WidgetTester tester) async {
+  testWidgets('AddThemeApp ThemeMode changes', (WidgetTester tester) async {
     var themeMode = ThemeMode.light;
     late StateSetter testSetState;
     final boxKey = UniqueKey();
@@ -240,7 +240,7 @@ void main() {
             darkTheme: ThemeData.dark(),
             themeMode: themeMode,
             builder: (context, child) {
-              return ExtThemeApp<TestThemeData>(
+              return AddThemeApp<TestThemeData>(
                 theme: testLight,
                 darkTheme: testDark,
                 child: child!,
@@ -307,7 +307,7 @@ void main() {
               darkTheme: ThemeData.dark(),
               themeMode: themeMode,
               builder: (context, child) {
-                return ExtThemeApp<TestThemeData>(
+                return AddThemeApp<TestThemeData>(
                   theme: testLight,
                   darkTheme: testDark,
                   child: child!,
