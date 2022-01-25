@@ -69,15 +69,17 @@ class _AnimatedAddThemeState<T extends AddThemeData>
   }
 }
 
-class AddTheme<T extends AddThemeData> extends StatelessWidget {
+class AddTheme<T extends AddThemeData> extends InheritedWidget {
   const AddTheme({
     Key? key,
     required this.data,
-    required this.child,
-  }) : super(key: key);
+    required Widget child,
+  }) : super(
+          key: key,
+          child: child,
+        );
 
   final T data;
-  final Widget child;
 
   static T of<T extends AddThemeData>(BuildContext context) {
     final data = maybeOf<T>(context);
@@ -94,35 +96,13 @@ class AddTheme<T extends AddThemeData> extends StatelessWidget {
   }
 
   static T? maybeOf<T extends AddThemeData>(BuildContext context) {
-    final inherited =
-        context.dependOnInheritedWidgetOfExactType<_InheritedAddTheme<T>>();
-    return inherited?.theme.data;
+    final inherited = context.dependOnInheritedWidgetOfExactType<AddTheme<T>>();
+    return inherited?.data;
   }
 
   @override
-  Widget build(BuildContext context) {
-    return _InheritedAddTheme<T>(
-      theme: this,
-      child: child,
-    );
-  }
-}
-
-class _InheritedAddTheme<T extends AddThemeData> extends InheritedWidget {
-  const _InheritedAddTheme({
-    Key? key,
-    required this.theme,
-    required Widget child,
-  }) : super(
-          key: key,
-          child: child,
-        );
-
-  final AddTheme<T> theme;
-
-  @override
-  bool updateShouldNotify(_InheritedAddTheme<T> oldWidget) {
-    return oldWidget.theme.data != theme.data;
+  bool updateShouldNotify(AddTheme<T> oldWidget) {
+    return data != oldWidget.data;
   }
 }
 
