@@ -1,3 +1,6 @@
+## 0.4.1
+- Add example
+
 ## 0.4.0
 - Revised AddTheme, it now extends InheritedWidget instead of add it in build
 
