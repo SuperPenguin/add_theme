@@ -1,6 +1,6 @@
 name: add_theme
 description: Class and Widgets to help you define your own ThemeData and use it like Theme does
-version: 0.4.1
+version: 0.4.2
 homepage: https://github.com/SuperPenguin/add_theme
 repository: https://github.com/SuperPenguin/add_theme
 issue_tracker: https://github.com/SuperPenguin/add_theme/issues

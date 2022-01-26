@@ -171,9 +171,8 @@ class CustomWidgetTheme extends AddTheme<CustomWidgetThemeData> {
 
   static CustomWidgetThemeData of(BuildContext context) {
     // Return nearest CustomWidgetTheme data if any
-    final inherited =
-        context.dependOnInheritedWidgetOfExactType<CustomWidgetTheme>();
-    if (inherited != null) return inherited.data;
+    final inherited = AddTheme.maybeOf<CustomWidgetThemeData>(context);
+    if (inherited != null) return inherited;
 
     // Return data from ExtendedTheme
     return ExtendedTheme.of(context).customWidgetTheme;

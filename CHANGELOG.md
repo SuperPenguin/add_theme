@@ -1,3 +1,6 @@
+## 0.4.2
+- Revert AddTheme back to a StatelessWidget
+
 ## 0.4.1
 - Add example
 
